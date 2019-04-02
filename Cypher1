@@ -2,7 +2,7 @@
 
 int main()
 {
-    printf("Hello World");
+    printf("Which cypher would you like to use?\n a) Rotation Cypher\n b) Substitution Cypher");
 
     return 0;
 }
