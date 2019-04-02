@@ -17,11 +17,11 @@ int main()
     
     if(str == 'a'){
     
-        printf("A");
+        printf("Would you like to:\n a) Encrypt message\n b) Decrypt message");
         
     }else if(str == 'b'){
     
-        printf("B");
+        printf("Would you like to:\n a) Encrypt message\n b) Decrypt message");
         
     }else{
         printf("ERROR");
@@ -29,3 +29,7 @@ int main()
     }
     return 0;
 }
+
+/*const char* encryptR(const char* a){
+    
+}*/
