@@ -9,7 +9,7 @@ const char* decryptS(const char* a);
 
 
 int main()
-{
+{ 
     
     printf("Which cypher would you like to use?\n a) Rotation Cypher\n b) Substitution Cypher\n");
     
