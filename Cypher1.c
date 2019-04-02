@@ -23,7 +23,7 @@ int main()
         scanf("%s", &str2);
         
         if(str2 == 'a'){
-            printf("ENCRYPT R\n");
+            printf("ENCRYPT R\n"); 
         }else if(str2 == 'b'){
             printf("DECRYPT R\n");
         }else{
