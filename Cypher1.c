@@ -48,6 +48,15 @@ int main()
 void encryptR(){    
     FILE *Input, *Output;
     FILE *input = fopen("Input","r");
+    FILE *output = fopen("Output", "a+");
+    
+    int moveAmount = 0;
+    
+    printf("By how much do you wish to move the letters:\n");
+    
+    scanf("%d", &moveAmount);
+    
+    //printf("%d",moveAmount);
     
     char string[1024];
     
@@ -56,11 +65,12 @@ void encryptR(){
         return;
     }else{
         while(!feof(input)){
-            fscanf(input, "%s", string);
+            fscanf(input, "%c", string);
             
-            int i = 0;
-            
-            printf("%s\n", string);
+            printf("%c %d\n", string[0], string[0]);
+            if(string[0] == '\n'){
+                fprintf(output, "%c", string);
+            }
         }
     }
     
