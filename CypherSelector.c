@@ -11,7 +11,7 @@ void decryptR();
 
 int main()
 {
-    FILE *Input, *Output;
+    FILE *Input, *Output; 
     FILE *input = fopen("Input","r");
     printf("Which cypher would you like to use?\n a) Rotation Cypher\n b) Substitution Cypher\n");
     scanf("%s", &str1);
