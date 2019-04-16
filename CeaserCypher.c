@@ -82,7 +82,7 @@ int main()
                         String[i] = 122;
                         break;
                     case 122:
-                        String[i] = 97;
+                        String[i] = 97; 
                         break;
                     case 33:
                         String[i] = 32;
