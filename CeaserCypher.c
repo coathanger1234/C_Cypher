@@ -2,12 +2,16 @@
 
 int main()
 {
+    FILE *Input,*Output;
+    FILE *input = fopen("Input","r");
+    FILE *output = fopen("Output", "a+")
+    
     int r;
-    char String[1024] ="We Strike At Dawn";
+    char String[1024];
     printf("%s\n",String);
     printf("Rotations: \n");
     scanf("%d", &r);
-    printf("%d\n", r);
+    //printf("%d\n", r);
     if(r > 0){
         char letter;
         //printf("%d",r);
@@ -54,6 +58,9 @@ int main()
         for(int i = 0; String[i] != 0; i++){
             printf("%c", String[i]);
         }
+        
+        
+        //DOESNT WORK, FIX NEG. NUMBERS
     }if(r < 0){
         char letter;
         //printf("%d",r);
