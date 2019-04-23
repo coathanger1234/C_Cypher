@@ -4,7 +4,7 @@ int main()
 {
     FILE *Input,*Output;
     FILE *input = fopen("Input","r");
-    FILE *output = fopen("Output", "a+")
+    FILE *output = fopen("Output", "a+");
     
     int r;
     char String[1024];
