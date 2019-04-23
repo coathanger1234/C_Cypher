@@ -5,7 +5,7 @@ int main(){
     // = "ABCDEFGHIJKLMNOPQRWSTUVWXYZ"
     char alphabet2[1024] = "QWERTYUIOPASDFGHJKLZXCVBNM";
     int b = 0;
-    char String[1024] = "THIS STILL DOESNT WORK";
+    char String[1024] = "This Message Has Some CAPITALS";
     char String2[1024];
     char choiceSwap;
     char choice;
@@ -17,6 +17,7 @@ int main(){
        //printf("%c\n", alphabet[y]);
        b++;
     }
+    
 
     printf("%s\n", alphabet);
     printf("%s\n",String);
@@ -29,14 +30,18 @@ int main(){
     //printf("%s", alphabet2);
 
     for(int i = 0; String[i] != 0; i++){
-        for(int x = 0; alphabet[x] != 0; x++){
+        if(String[i] <= 122 && String[i] >= 97){
+            String[i] - 32;
+        }
+        /*for(int x = 0; alphabet[x] != 0; x++){
             if(String[i] == alphabet[x]){
                 printf("%i:%i   MATCH\n",i,x);
                 String2[i] = alphabet2[x];
             }else if(String[i] == 32){
                 String2[i] = 32;
             }
-        }
+        }*/
+       printf("%s\n",String);
     }
     printf("%s\n",String2);
 
