@@ -8,7 +8,7 @@ int main()
     FILE *output = fopen("Output", "a+");*/
     
     int r;  //var for number of rotations
-    char String[1024] = "RGD RDDK";
+    char String[1024] = "ZGD RDDK";
     printf("%s\n",String);
     printf("Key: \n");
     scanf("%d", &r);

@@ -4,15 +4,13 @@ char str1;
 char str2;
 
 void encryptR();
-//void encryptS();
+void encryptS();
 void decryptR();
 //void decryptS();
 
 
 int main()
 {
-    FILE *Input, *Output; 
-    FILE *input = fopen("Input","r");
     printf("Which cypher would you like to use?\n a) Rotation Cypher\n b) Substitution Cypher\n");
     scanf("%s", &str1);
     if(str1 == 'a'){
@@ -24,18 +22,20 @@ int main()
             decryptR();
         }else{
             printf("ERROR");
-        }   
+        }
+        return 0;
     }
-}
 
-    /*else if(str1 == 'b'){
-        printf("Would you like to:\n a) Encrypt message\n b) Decrypt message");
+    else if(str1 == 'b'){
+        printf("Would you like to:\n a) Encrypt message\n b) Decrypt message\n");
         scanf("%s", &str2);
         printf("after scan\n");
         if(str2 == 'a'){
-            printf("ENCRYPT S\n"){
+            encryptS();
+            return 0;
         }else if(str2 == 'b'){
             printf("DECRYPT S\n");
+            return 0;
         }else{
             printf("ERROR");    
         }
@@ -43,41 +43,78 @@ int main()
         printf("ERROR");       
     }
     return 0;
-}
-*/
+    }
+
 void encryptR(){    
-    FILE *Input, *Output;
-    FILE *input = fopen("Input","r");
-    FILE *output = fopen("Output", "a+");
+
+}
+
+
+
+
+
+
+void encryptS(){
     
-    int moveAmount = 0;
-    
-    printf("By how much do you wish to move the letters:\n");
-    
-    scanf("%d", &moveAmount);
-    
-    //printf("%d",moveAmount);
-    
-    char string[1024];
-    
-    if(input == NULL){ 
-        perror("fopen()");
-        return;
-    }else{
-        while(!feof(input)){
-            fscanf(input, "%c", string);
-            
-            printf("%c %d\n", string[0], string[0]);
-            if(string[0] == '\n'){
-                fprintf(output, "%c", string);
-            }
-        }
+   FILE *OutputSE;
+    FILE *output = fopen("OutputSE", "a");
+char alphabet[1024];
+    // = "ABCDEFGHIJKLMNOPQRWSTUVWXYZ"
+    char alphabet2[1024] = "QWERTYUIOPASDFGHJKLZXCVBNM";
+    int b = 0;
+    char String[1024];
+    char String2[1024];
+    char choiceSwap;
+    char choice;
+    char temp;
+
+    //Makes an alphabet array
+    for(int y = 65; y <= 90; y++){
+       alphabet[b] = y;
+       //printf("%c\n", alphabet[y]);
+       b++;
     }
     
+    printf("Please enter a message");
+    
+    scanf("%[^\n]%*c",String);
+    printf("%s\n", alphabet);
+    printf("%s\n",String);
+    //printf("\n");
+
+    //printf("\n Please enter the 'key' for the encryption (Use only the letters of the alphabet)\n");
+    //printf("An example of how the 'key' should look would be as follows: QWERTYUIOPASDFGHJKLZXCVBNM\n");
+    //scanf("%s", alphabet2);
+
+    //printf("%s", alphabet2);
+
+    for(int i = 0; String[i] != 0; i++){
+        if(String[i] <= 122 && String[i] >= 97){
+            String[i] = String[i] - 32;
+            //printf("%c", String[i]);
+        }
+        
+        for(int x = 0; alphabet[x] != 0; x++){
+            if(String[i] == alphabet[x]){
+                //printf("%i:%i   MATCH\n",i,x);
+                String2[i] = alphabet2[x];
+            }else if(String[i] == 32){
+                String2[i] = 32;
+            }
+        }
+       //printf("%s\n",String);
+    }
+
+    printf("%s\n",String2);
+    fprintf(output,"%s\n",String2);
+    fclose(output);
+
+
 }
-//void encryptS(){
-//    String word[] = "a";
-//}
+
+
+
+
 void decryptR(){
     char word[] = "b";
     int i = 0;

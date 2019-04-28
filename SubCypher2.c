@@ -1,51 +1,84 @@
 #include <stdio.h>
 
 int main(){
-    char alphabet[1024];
-    // = "ABCDEFGHIJKLMNOPQRWSTUVWXYZ"
-    char alphabet2[1024] = "QWERTYUIOPASDFGHJKLZXCVBNM";
-    int b = 0;
-    char String[1024] = "ONLY PRINT this";
-    char String2[1024];
-    char choiceSwap;
-    char choice;
-    char temp;
+    //Opening files, setting var anems to files
+    FILE *OutputSE,*InputSE;
+    FILE *input = fopen("InputSE", "r");
+    FILE *output = fopen("OutputSE", "a");
 
-    //Makes an alphabet array
-    for(int y = 65; y <= 90; y++){
-       alphabet[b] = y;
-       //printf("%c\n", alphabet[y]);
-       b++;
+    //testing files if they can be opened
+    if(input == NULL){
+        perror("Input not found");
+        return 0;
     }
-    
+    if(output == NULL){
+        perror("Output not found");
+        return 0;
+    }
 
-    printf("%s\n", alphabet);
-    printf("%s\n",String);
-    //printf("\n");
 
-    //printf("\n Please enter the 'key' for the encryption (Use only the letters of the alphabet)\n");
-    //printf("An example of how the 'key' should look would be as follows: QWERTYUIOPASDFGHJKLZXCVBNM\n");
-    //scanf("%s", alphabet2);
 
-    //printf("%s", alphabet2);
 
-    for(int i = 0; String[i] != 0; i++){
-        if(String[i] <= 122 && String[i] >= 97){
-            String[i] = String[i] - 32;
-            //printf("%c", String[i]);
-        }
+
+
+    //Actual section that does the encryption
+    //runs until end of file reached
+    while(!feof(input)){
+        //variable to hold the normal alphabet
+        char alphabet[1024];
+
+        //Asigns the Encryption key to this variable
+
+        char alphabet2[1024];
+
+
+        fgets(alphabet2,200,input);
+
+
+
+
+
+        int b = 0;
+        //Assigns the message to be encrypted to a var
         
-        for(int x = 0; alphabet[x] != 0; x++){
-            if(String[i] == alphabet[x]){
-                //printf("%i:%i   MATCH\n",i,x);
-                String2[i] = alphabet2[x];
-            }else if(String[i] == 32){
-                String2[i] = 32;
+        char String[3072];
+
+        fgets(String,200,input);
+
+        char String2[3072];
+
+
+
+
+
+
+
+
+
+
+        //Makes an alphabet array
+        for(int y = 65; y <= 90; y++){
+           alphabet[b] = y;
+           b++;
+        }
+        //Checks if all char is uppercase
+        for(int i = 0; String[i] != 0; i++){
+            if(String[i] <= 122 && String[i] >= 97){
+                String[i] = String[i] - 32;
+            }
+        //changes char depending on position in alphabet[]
+            for(int x = 0; alphabet[x] != '\0'; x++){
+                if(String[i] == alphabet[x]){
+                    String2[i] = alphabet2[x];
+
+                }else if(String[i] == 32){
+
+                    String2[i] = 32;
+                }
             }
         }
-       //printf("%s\n",String);
+        fprintf(output, "%s", alphabet2);
+        fprintf(output, "%s\n", String2);
     }
-    printf("%s\n",String2);
-
     return 0;
 }
