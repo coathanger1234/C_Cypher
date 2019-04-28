@@ -4,7 +4,7 @@ int main(){
     
     //Marking files for input and output
     FILE *OutputCE, *InputCE;
-    FILE *output = fopen("OutputCE", "a");
+    FILE *output = fopen("OutputCE", "a+");
     FILE *input = fopen("InputCE","r");
     
     //Checking if files is working

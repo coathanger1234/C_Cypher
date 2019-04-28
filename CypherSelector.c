@@ -176,14 +176,10 @@ void decryptS(){
 
 }
 void decryptR(){
-        //Marking files for input and output
-    FILE *InputDC,*OutputDC;
-    FILE *input = fopen("InputCE","r");
-    FILE *output = fopen("OutputCD", "a+");
+    //KEEPS BREAKING ./A.OUT
+    FILE *OutputDC;
+    FILE *output = fopen("OutputCD", "a");
     
-    if(input == NULL){
-        perror("Input not found");
-    }
     if(output == NULL){
         perror("Output not found");
     }
@@ -192,11 +188,13 @@ void decryptR(){
     
     char String[1024];
     
-    while(!feof(input)){
-
-    fscanf(input,"%d",&r);
+    printf("Please enter KEY for cypher\n");
     
-    fgets(String, 200, input);
+    scanf("%d",&r);
+    
+    printf("Please enter MESSAGE for cypher\n");
+    
+    scanf("%s",String);
     
     if(r > 0){
 
@@ -266,12 +264,12 @@ void decryptR(){
                 }
             }
         }
-        fprintf(output,"%d\n",r);
-        fprintf(output,"%d\n",r);
     }
+        printf("%s", String);
+        fprintf(output,"%d\n",r);
+        fprintf(output,"%s\n",String);
         fclose(output);
-        fclose(input);
-    }
+    
 }
 void encryptR(){
     //Marking files for input and output
