@@ -6,7 +6,7 @@ char str2;
 void encryptR();
 void encryptS();
 void decryptR();
-//void decryptS();
+void decryptS();
 
 
 int main()
@@ -34,7 +34,7 @@ int main()
             encryptS();
             return 0;
         }else if(str2 == 'b'){
-            printf("DECRYPT S\n");
+            decryptS();
             return 0;
         }else{
             printf("ERROR");    
@@ -45,10 +45,6 @@ int main()
     return 0;
     }
 
-void encryptR(){    
-
-}
-
 
 
 
@@ -56,57 +52,65 @@ void encryptR(){
 
 void encryptS(){
     
-   FILE *OutputSE;
+   //Opening files, setting var anems to files
+    FILE *OutputSE,*InputSE;
+    FILE *input = fopen("InputSE", "r");
     FILE *output = fopen("OutputSE", "a");
-char alphabet[1024];
-    // = "ABCDEFGHIJKLMNOPQRWSTUVWXYZ"
-    char alphabet2[1024] = "QWERTYUIOPASDFGHJKLZXCVBNM";
-    int b = 0;
-    char String[1024];
-    char String2[1024];
-    char choiceSwap;
-    char choice;
-    char temp;
 
-    //Makes an alphabet array
-    for(int y = 65; y <= 90; y++){
-       alphabet[b] = y;
-       //printf("%c\n", alphabet[y]);
-       b++;
+    //testing files if they can be opened
+    if(input == NULL){
+        perror("Input not found");
+
     }
-    
-    printf("Please enter a message");
-    
-    scanf("%[^\n]%*c",String);
-    printf("%s\n", alphabet);
-    printf("%s\n",String);
-    //printf("\n");
+    if(output == NULL){
+        perror("Output not found");
 
-    //printf("\n Please enter the 'key' for the encryption (Use only the letters of the alphabet)\n");
-    //printf("An example of how the 'key' should look would be as follows: QWERTYUIOPASDFGHJKLZXCVBNM\n");
-    //scanf("%s", alphabet2);
+    }
+    //runs until end of file reached
+    while(!feof(input)){
+        //variable to hold the normal alphabet
+        char alphabet[1024];
 
-    //printf("%s", alphabet2);
+        //Asigns the Encryption key to this variable
 
-    for(int i = 0; String[i] != 0; i++){
-        if(String[i] <= 122 && String[i] >= 97){
-            String[i] = String[i] - 32;
-            //printf("%c", String[i]);
-        }
+        char alphabet2[1024];
+
+
+        fgets(alphabet2,200,input);
+
+        int b = 0;
+        //Assigns the message to be encrypted to a var
         
-        for(int x = 0; alphabet[x] != 0; x++){
-            if(String[i] == alphabet[x]){
-                //printf("%i:%i   MATCH\n",i,x);
-                String2[i] = alphabet2[x];
-            }else if(String[i] == 32){
-                String2[i] = 32;
+        char String[3072];
+
+        fgets(String,200,input);
+
+        char String2[3072];
+        //Makes an alphabet array
+        for(int y = 65; y <= 90; y++){
+           alphabet[b] = y;
+           b++;
+        }
+        //Goes through all char within String and changes all lowercase char to uppercase
+        for(int i = 0; String[i] != 0; i++){
+            if(String[i] <= 122 && String[i] >= 97){
+                String[i] = String[i] - 32;
+            }
+        //Compares a char in String to all char in alphabet, when a match has been found, it will take the position of the match and add the same char in the position within alphabet2 and add it to String2
+            for(int x = 0; alphabet[x] != '\0'; x++){
+                if(String[i] == alphabet[x]){
+                    String2[i] = alphabet2[x];
+        //Checks for spaces, leaves them in
+                }else if(String[i] == 32){
+
+                    String2[i] = 32;
+                }
             }
         }
-       //printf("%s\n",String);
+        fprintf(output, "%s", alphabet2);
+        fprintf(output, "%s\n", String2);
     }
-
-    printf("%s\n",String2);
-    fprintf(output,"%s\n",String2);
+    fclose(input);
     fclose(output);
 
 
@@ -115,11 +119,254 @@ char alphabet[1024];
 
 
 
-void decryptR(){
-    char word[] = "b";
-    int i = 0;
-    printf("%c\n", word[i]);
+void decryptS(){
+    FILE *OutputSE,*InputSE;
+    FILE *input = fopen("InputSD", "r");
+    FILE *output = fopen("OutputSD", "a");
+    
+    
+     if(input == NULL){
+        perror("Input not found");
+    }
+    if(output == NULL){
+        perror("Output not found");
+    }
+    
+    while(!feof(input)){
+        
+        char key[1024];
+        
+        fgets(key,200,input);
+
+        char alphabet[1024];
+        
+        int b = 0;
+        
+        char String[3072];
+
+        fgets(String,200,input);
+
+        char String2[3072];
+        
+        for(int y = 65; y <= 90; y++){
+           alphabet[b] = y;
+           b++;
+        }
+        for(int i = 0; String[i] != 0; i++){
+            if(String[i] <= 122 && String[i] >= 97){
+                String[i] = String[i] - 32;
+            }
+            for(int x = 0; alphabet[x] != '\0'; x++){
+                if(String[i] == key[x]){
+                    String2[i] = alphabet[x];
+
+                }else if(String[i] == 32){
+
+                    String2[i] = 32;
+                }
+            }
+        }
+        fprintf(output, "%s", key);
+        fprintf(output, "%s\n", String2);
+
+        
+    }
+    fclose(input);
+    fclose(output);
+
 }
-//void decryptS(){
-//    String word[] = "a";
-//}
+void decryptR(){
+        //Marking files for input and output
+    FILE *InputDC,*OutputDC;
+    FILE *input = fopen("InputCE","r");
+    FILE *output = fopen("OutputCD", "a+");
+    
+    if(input == NULL){
+        perror("Input not found");
+    }
+    if(output == NULL){
+        perror("Output not found");
+    }
+    
+    int r;  //var for number of rotations
+    
+    char String[1024];
+    
+    while(!feof(input)){
+
+    fscanf(input,"%d",&r);
+    
+    fgets(String, 200, input);
+    
+    if(r > 0){
+
+        
+        char letter;
+
+        
+        for(int p = 0; p < r; p++){
+            
+            for(int i = 0; String[i] != 0 ;i++){
+                
+                letter = String[i];
+                
+                letter = letter - 1;
+                
+                switch(letter){
+                    case 64:
+                        String[i] = 90;
+                        break;
+                    case 91:
+                        String[i] = 65;
+                        break;
+                    case 96:
+                        String[i] = 122;
+                        break;
+                    case 122:
+                        String[i] = 97; 
+                        break;
+                    case 31:
+                        String[i] = 32;
+                        break;
+                    default:
+                        String[i] = letter;
+                        break;
+                }
+            }
+        }
+        for(int i = 0; String[i] != 0; i++){
+            printf("%c\n", String[i]);
+        }
+    }else if(r < 0){
+        char letter;
+        for(int p = 0; p > r; p--){
+            for(int i = 0; String[i] != 0 ;i++){
+                letter = String[i];
+                letter++;
+                
+                switch(letter){
+                    case 64:
+                        String[i] = 90;
+                        break;
+                    case 91:
+                        String[i] = 65;
+                        break;
+                    case 96:
+                        String[i] = 122;
+                        break;
+                    case 122:
+                        String[i] = 97;
+                        break;
+                    case 33:
+                        String[i] = 32;
+                        break;
+                    default:
+                        String[i] = letter;
+                        break;
+                }
+            }
+        }
+        fprintf(output,"%d\n",r);
+        fprintf(output,"%d\n",r);
+    }
+        fclose(output);
+        fclose(input);
+    }
+}
+void encryptR(){
+    //Marking files for input and output
+    FILE *OutputCE, *InputCE;
+    FILE *output = fopen("OutputCE", "a");
+    FILE *input = fopen("InputCE","r");
+    
+    //Checking if files is working
+    if(output == NULL){
+        perror("Output not found");
+    }
+    if(input == NULL){
+        perror("Input not found");
+    }
+    
+    int r;
+    
+    char String[1024];
+    while(!feof(input)){
+        
+        fscanf(input,"%d",&r);
+        //printf("%d", r);
+        
+        fgets(String, 200, input);
+        
+        if(r > 0){
+            
+            char letter;
+            
+            for(int p = 0; p < r; p++){
+                
+                for(int i = 0; String[i] != 0 ;i++){
+                    
+                    letter = String[i];
+                    
+                    letter++;
+                    
+                    
+                    //printf("%d\n", letter);
+                    switch(letter){
+                        case 64:
+                            String[i] = 90;
+                            break;
+                        case 91:
+                            String[i] = 65;
+                            break;
+                        case 96:
+                            String[i] = 122;
+                            break;
+                        case 122:
+                            String[i] = 97;
+                            break;
+                        case 33:
+                            String[i] = 32;
+                            break;
+                        default:
+                            String[i] = letter;
+                            break;
+                    }
+                    //printf("%c\n",String[i]);
+                }
+            }
+        }else if(r < 0){
+            char letter;
+            for(int p = 0; p > r; p--){
+                for(int i = 0; String[i] != 0 ;i++){
+                    letter = String[i];
+                    letter = letter - 1;
+                    
+                    switch(letter){
+                        case 64:
+                            String[i] = 90;
+                            break;
+                        case 91:
+                            String[i] = 65;
+                            break;
+                        case 96:
+                            String[i] = 122;
+                            break;
+                        case 122:
+                            String[i] = 97; 
+                            break;
+                        case 31:
+                            String[i] = 32;
+                            break;
+                        default:
+                            String[i] = letter;
+                            break;
+                    }
+                }
+            }
+        }
+        fprintf(output,"%d\n",r);
+        fprintf(output,"%s\n",String);
+    }
+    fclose(input);
+    fclose(output);
+}

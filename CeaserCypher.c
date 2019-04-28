@@ -1,37 +1,39 @@
 #include <stdio.h>
 
-int main()
-{
+int main(){
+    
     //Marking files for input and output
-    FILE *OutputCE;
+    FILE *OutputCE, *InputCE;
     FILE *output = fopen("OutputCE", "a");
+    FILE *input = fopen("InputCE","r");
     
     //Checking if files is working
     if(output == NULL){
-        printf("Error");
+        perror("Output not found");
+        return 0;
+    }
+    if(input == NULL){
+        perror("Input not found");
         return 0;
     }
     
-    //for(q = 0; q ){
-        int r;  //var for number of rotations
+    int r;
+    
+    char String[1024];
+    while(!feof(input)){
         
-        char String[1024]; //Message to be encrypted
+        int i = 0;
         
-        scanf("%[^\n]s",String);
+        fscanf(input,"%d",&r);
+        //printf("%d", r);
         
-        printf("%s\n",String);
-        
-        
-        
-        printf("Rotations: \n");
-        
-        scanf("%d", &r);
-        //printf("%d\n", r);
+        fgets(String, 200, input);
+       
+        printf("%s", String);
         
         if(r > 0){
             
             char letter;
-            //printf("%d",r);
             
             for(int p = 0; p < r; p++){
                 
@@ -42,14 +44,7 @@ int main()
                     letter++;
                     
                     
-                    /*if(String[i] > 64 && String[i] < 123){
-                        if(String[i] < 91||String[i] > 96){
-                            letter++; 
-                        }
-                    }else{
-                        continue;
-                    }*/
-                    
+                    //printf("%d\n", letter);
                     switch(letter){
                         case 64:
                             String[i] = 90;
@@ -70,34 +65,15 @@ int main()
                             String[i] = letter;
                             break;
                     }
-                    
-                    //printf("%c", letter);
                     //printf("%c\n",String[i]);
                 }
-                //printf("%c", letter);
             }
-            for(int i = 0; String[i] != 0; i++){
-                printf("%c", String[i]);
-            }
-            
-            
-            
         }else if(r < 0){
             char letter;
-            //printf("%d\n",r);
             for(int p = 0; p > r; p--){
                 for(int i = 0; String[i] != 0 ;i++){
                     letter = String[i];
                     letter = letter - 1;
-                    printf("%c", letter);
-                    
-                    /*if(String[i] > 64 && String[i] < 123){
-                        if(String[i] < 91||String[i] > 96){
-                            letter++; 
-                        }
-                    }else{
-                        continue;
-                    }*/
                     
                     switch(letter){
                         case 64:
@@ -119,21 +95,13 @@ int main()
                             String[i] = letter;
                             break;
                     }
-                    
-                    printf("    %c\n", String[i]);
-                    //printf("%c\n",String[i]);
                 }
-                //printf("%c", letter);
-            }
-            for(int i = 0; String[i] != 0; i++){
-                printf("%c", String[i]);
             }
         }
-
-    //}
-    fprintf(output,"%s",String);
-    fprintf(output,"\n");
+        fprintf(output,"%d\n",r);
+        fprintf(output,"%s\n",String);
+    }
+    fclose(input);
     fclose(output);
-
     return 0;
 }
